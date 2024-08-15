@@ -1,4 +1,4 @@
-public class Main
+public class 1_CreateTree
 {
 	public static void main(String[] args) {
 		System.out.println("Hello World");
