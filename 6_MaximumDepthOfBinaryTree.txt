@@ -1,0 +1,26 @@
+import java.util.* ;
+import java.io.*; 
+/****************************************************
+class BinaryTreeNode<T> {
+	T data;
+	BinaryTreeNode<T> left;
+	BinaryTreeNode<T> right;
+
+	public BinaryTreeNode(T data) {
+		this.data = data;
+	}
+}
+
+*****************************************************/
+public class Solution 
+{
+	public static int findMaxDepth(BinaryTreeNode<Integer> root) 
+	{
+		if(root==null)
+		return 0;
+		int left=findMaxDepth(root.left);
+		int right=findMaxDepth(root.right);
+		return 1+Math.max(left, right);
+		// WRITE YOUR CODE HERE 
+	}
+}
