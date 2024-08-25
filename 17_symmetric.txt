@@ -1,0 +1,29 @@
+class GfG
+{
+    // Return true/false denoting whether the tree is symmetric or not
+    public static boolean isSymmetric(Node node)
+    {
+        if (node == null)
+            return true;
+        
+        // Use a helper method to compare the left and right subtrees
+        return isMirror(node.left, node.right);
+    }
+    
+    // Helper method to check if two trees are mirror images of each other
+    private static boolean isMirror(Node left, Node right)
+    {
+        // If both nodes are null, they are mirrors
+        if (left == null && right == null)
+            return true;
+        
+        // If only one of the nodes is null, they are not mirrors
+        if (left == null || right == null)
+            return false;
+        
+        // The two nodes must have the same value and their subtrees must be mirrors
+        return (left.data == right.data) &&
+               isMirror(left.left, right.right) &&
+               isMirror(left.right, right.left);
+    }
+}
