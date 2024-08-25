@@ -1,0 +1,144 @@
+// Class representing a node in the BST
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int item) {
+        data = item;
+        left = right = null;
+    }
+}
+
+// Class representing the Binary Search Tree
+class BinarySearchTree {
+    Node root;
+
+    // Constructor for BST, initially root is null
+    BinarySearchTree() {
+        root = null;
+    }
+
+    // Method to insert a new node with the given data
+    void insert(int data) {
+        root = insertRec(root, data);
+    }
+
+    // Recursive function to insert a new node with the given data
+    Node insertRec(Node root, int data) {
+        // If the tree is empty, return a new node
+        if (root == null) {
+            root = new Node(data);
+            return root;
+        }
+
+        // Otherwise, recur down the tree
+        if (data < root.data) {
+            root.left = insertRec(root.left, data);
+        } else if (data > root.data) {
+            root.right = insertRec(root.right, data);
+        }
+
+        // Return the unchanged node pointer
+        return root;
+    }
+
+    // Method for inorder traversal of the BST
+    void inorder() {
+        inorderRec(root);
+    }
+
+    // Recursive function for inorder traversal
+    void inorderRec(Node root) {
+        if (root != null) {
+            inorderRec(root.left);
+            System.out.print(root.data + " ");
+            inorderRec(root.right);
+        }
+    }
+
+    // Method to search for a node with the given key
+    Node search(int key) {
+        return searchRec(root, key);
+    }
+
+    // Recursive function to search for a key in the BST
+    Node searchRec(Node root, int key) {
+        // Base Cases: root is null or key is present at root
+        if (root == null || root.data == key) {
+            return root;
+        }
+
+        // Key is greater than root's data
+        if (root.data < key) {
+            return searchRec(root.right, key);
+        }
+
+        // Key is smaller than root's data
+        return searchRec(root.left, key);
+    }
+
+    // Method for preorder traversal of the BST
+    void preorder() {
+        preorderRec(root);
+    }
+
+    // Recursive function for preorder traversal
+    void preorderRec(Node root) {
+        if (root != null) {
+            System.out.print(root.data + " ");
+            preorderRec(root.left);
+            preorderRec(root.right);
+        }
+    }
+
+    // Method for postorder traversal of the BST
+    void postorder() {
+        postorderRec(root);
+    }
+
+    // Recursive function for postorder traversal
+    void postorderRec(Node root) {
+        if (root != null) {
+            postorderRec(root.left);
+            postorderRec(root.right);
+            System.out.print(root.data + " ");
+        }
+    }
+}
+
+// Driver class to test the Binary Search Tree
+public class Main {
+    public static void main(String[] args) {
+        BinarySearchTree bst = new BinarySearchTree();
+
+        // Insert nodes into the BST
+        bst.insert(50);
+        bst.insert(30);
+        bst.insert(20);
+        bst.insert(40);
+        bst.insert(70);
+        bst.insert(60);
+        bst.insert(80);
+
+        // Print inorder traversal (should print in sorted order)
+        System.out.println("Inorder traversal:");
+        bst.inorder();
+
+        // Print preorder traversal
+        System.out.println("\nPreorder traversal:");
+        bst.preorder();
+
+        // Print postorder traversal
+        System.out.println("\nPostorder traversal:");
+        bst.postorder();
+
+        // Search for a node
+        int key = 40;
+        Node result = bst.search(key);
+        if (result != null) {
+            System.out.println("\nNode " + key + " found in the BST.");
+        } else {
+            System.out.println("\nNode " + key + " not found in the BST.");
+        }
+    }
+}
