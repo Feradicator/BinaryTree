@@ -1,0 +1,83 @@
+  public static int minTime(Node root, int target) 
+    {
+        HashMap<Node,Node>hm=new HashMap<>();
+        Node current=parentMap(root,target,hm);
+        int time1=time(current,hm);
+        return time1;
+        
+        
+        // Your code goes here
+    }
+    public static int time(Node node,HashMap<Node,Node>hm)
+    {
+        Queue<Node>que=new LinkedList<>();
+        que.add(node);
+        HashMap<Node,Integer>vis=new HashMap<>();
+        int count=0;
+        while(!que.isEmpty())
+        {
+            int n=que.size();
+            int time=0;
+            for(int i=0;i<n;i++)
+            {
+                Node curr=que.poll();
+                vis.put(curr,1);
+                if(curr.left!=null && !vis.containsKey(curr.left))
+                {
+                    que.add(curr.left);
+                    time=1;
+                    
+                }
+                 if(curr.right!=null && !vis.containsKey(curr.right))
+                {
+                    que.add(curr.right);
+                    time=1;
+                    
+                }
+                if(hm.containsKey(curr) && !vis.containsKey(hm.get(curr)))
+                {
+                    que.add(hm.get(curr));
+                    time=1;
+                }
+                
+            }
+            if(time==1)
+            count++;
+            
+        }
+        return count;
+        
+    }
+    
+    public static Node parentMap(Node node,int target,HashMap<Node,Node>hm)
+    {
+        Node ref=null;
+        Queue<Node>que=new LinkedList<>();
+        que.add(node);
+        while(!que.isEmpty())
+        {
+            Node current=que.poll();
+            if(current.data==target)
+            {
+               ref=current;
+               
+               
+            }
+            
+            if(current.left!=null)
+            {
+                que.add(current.left);
+                hm.put(current.left,current);
+            }
+            
+            if(current.right!=null)
+            {
+                que.add(current.right);
+                hm.put(current.right,current);
+            }
+           
+            
+        }
+        return ref;
+        
+    }
